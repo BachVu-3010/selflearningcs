@@ -1,0 +1,49 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="search">
+
+    <form method="post">
+
+        {{ form.hidden_tag() }}
+        <div class="search">
+
+            {{ form.search_body.label }} <br>
+            {{ form.search_body(class="text-secondary", id="text") }}
+            {{ form.submit(class="btn btn-primary mb-2") }}
+        
+        </div>       
+
+        {{ form.csrf_token() }}
+
+        {% if search_result %}
+
+            {% for question in search_result.items %}
+                <p>
+                    <a href="/questions/{{question.id}}">{{ question.title }} </a>
+                </p>
+            {% endfor %}
+            <div class="pagination" style="margin-bottom: 3; margin-top: 10">
+                <span class="step-links">
+                    {% if search_result.has_prev %}
+                        <a href="?page={{ search_result.prev_num }}">&laquo; previous</a>                        
+                    {% endif %}
+            
+                    <span class="current text-secondary">
+                        page {{ search_result.page }} of {{ search_result.pages }}
+                    </span>
+            
+                    {% if search_result.has_next %}
+                        <a href="?page={{ search_result.next_num }}">next &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+
+
+        {% endif %}
+      
+    </form>
+
+</div>
+{% endblock %}

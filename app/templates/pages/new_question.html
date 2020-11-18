@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+    
+    <form action="" method="post">
+     
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+
+            {{ form.title.label }} <br>
+            {{ form.title(class = "form-control", rows = "7", id="text", placeholder="Enter your question here.") }}            
+
+        </div>
+        <div class="form-group">
+
+            {{ form.body.label }} <br>
+            {{ form.body(class = "form-control", rows = "3", id="text") }}
+
+        </div>
+        {{ form.submit(class="btn btn-primary mb-2") }}
+        {{ form.csrf_token() }}
+        
+    </form>
+    
+{% endblock %}
