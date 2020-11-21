@@ -2,7 +2,6 @@ import os
 from sqlalchemy import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
-import json
 from datetime import datetime
 
 database_name = "qa4anything"
@@ -22,8 +21,8 @@ setup_db(app)
 
 def setup_db(app, database_path=database_path):
     moment = Moment(app)
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     db.create_all()
