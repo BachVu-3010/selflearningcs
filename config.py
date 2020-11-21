@@ -1,13 +1,19 @@
 import os
+from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+
+
+
+load_dotenv(os.path.join(basedir, '.env'))
 
 database_name = "qa4anything"
 database_path = "postgres://{}/{}".format(
     'postgres:password321@localhost:5432', database_name)
 
-class Config:
-    # SECRET_KEY = os.environ.get("SECRET KEY")
-    SECRET_KEY = os.urandom(32)
+class Config(object):
+
+    SECRET_KEY = os.environ.get("SECRET_KEY")   
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod

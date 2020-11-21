@@ -50,6 +50,10 @@ def create_app():
     app.config.from_object(config["development"])
     config["development"].init_app(app)
 
+    # app.config.from_object(config.get(config_name))
+    # config.get(config_name).init_app(app)
+
+
 
     # Set up bootstrap, moment, db at configuration time using the in_app method 
     # In this case all objects will be set up using the configuration values from FLask's current_app context global
