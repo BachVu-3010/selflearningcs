@@ -2,6 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
+
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
@@ -9,11 +10,6 @@ from flask_sqlalchemy import SQLAlchemy
 from config import config
 from flask_migrate import Migrate
 
-
-
-import sys
-# sys.path.append(
-#     "c:\\Bach\\ComputerScience\\Fullstack_nanodegree\\QA_4anything\\database")
 
 
 
@@ -32,7 +28,7 @@ db = SQLAlchemy()
 
 # Define an application factory function
 
-def create_app():
+def create_app(config_name):
 
     # static_folder='C:\Bach\ComputerScience\Fullstack_nanodegree\selflearningcs\app\static'
     # template_folder='C:\Bach\ComputerScience\Fullstack_nanodegree\selflearningcs\app\templates'
@@ -42,16 +38,11 @@ def create_app():
     #     static_folder = static_folder,
     #     template_folder = template_folder)
 
+  
 
-
-    app = Flask(__name__)
-
-    
-    app.config.from_object(config["development"])
-    config["development"].init_app(app)
-
-    # app.config.from_object(config.get(config_name))
-    # config.get(config_name).init_app(app)
+    app = Flask(__name__) 
+    app.config.from_object(config.get(config_name))
+    config.get(config_name).init_app(app)
 
 
 
@@ -62,11 +53,6 @@ def create_app():
     bootstrap.init_app(app)
     moment.init_app(app)
     db.init_app(app)
-
-
-
-    # db = setup_db(app)
-    migrate = Migrate(app, db)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

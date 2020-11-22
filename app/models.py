@@ -3,15 +3,7 @@ from sqlalchemy import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from datetime import datetime
-
-database_name = "qa4anything"
-database_path = "postgres://{}/{}".format(
-    'postgres:password321@localhost:5432', database_name)
-
-db = SQLAlchemy()
-
-
-# migrate = Migrate(app, db)
+from . import db
 
 '''
 setup_db(app)
@@ -19,28 +11,27 @@ setup_db(app)
 '''
 
 
-def setup_db(app, database_path=database_path):
-    moment = Moment(app)
-    # app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.app = app
-    db.init_app(app)
-    db.create_all()
+# def setup_db(app):
+#     moment = Moment(app)
 
-    # user1 = User("PakVu", "123456")
-    # user1.insert()
+#     db.app = app
+#     db.init_app(app)
+#     db.create_all()
 
-    # question1 = Question(title = "first question", body = "How much do you weight", created=datetime.utcnow(), modified=datetime.utcnow(), hidden=False)
-    # question1.insert()
+#     # user1 = User("PakVu", "123456")
+#     # user1.insert()
+
+#     # question1 = Question(title = "first question", body = "How much do you weight", created=datetime.utcnow(), modified=datetime.utcnow(), hidden=False)
+#     # question1.insert()
 
     
-    # answer1 = Answer(text="5ft7", question_id=4, user_id=4,created=datetime.utcnow(), modified=datetime.utcnow(), hidden=False)
-    # answer1.insert()
+#     # answer1 = Answer(text="5ft7", question_id=4, user_id=4,created=datetime.utcnow(), modified=datetime.utcnow(), hidden=False)
+#     # answer1.insert()
 
-    # db.session.add_all([user1, question1, answer1])
-    # db.session.commit()
+#     # db.session.add_all([user1, question1, answer1])
+#     # db.session.commit()
 
-    return db
+#     return db
 
 
 # Prepare relationship table for many to many relationship
