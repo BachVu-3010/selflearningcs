@@ -56,7 +56,9 @@ def create_app():
     bootstrap.init_app(app)
     moment.init_app(app)
     db.init_app(app)
-    # db.create_all()
+
+    with app.app_context():
+        db.create_all()
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
