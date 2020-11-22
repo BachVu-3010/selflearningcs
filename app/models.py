@@ -33,7 +33,7 @@ setup_db(app)
 
 #     return db
 
-db.create_all()
+
 
 # Prepare relationship table for many to many relationship
 users_upvote_questions = db.Table("users_upvote_questions", 
