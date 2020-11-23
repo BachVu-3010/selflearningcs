@@ -177,13 +177,9 @@ class Answer(db.Model):
         self.question_id = question_id
         self.user_id = user_id
 
-
-
     def insert(self):
         db.session.add(self)
         db.session.commit()
-
-
 
     def x_ago(self):
         diff = datetime.utcnow() - self.created
