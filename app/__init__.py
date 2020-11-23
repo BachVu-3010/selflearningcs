@@ -28,7 +28,7 @@ db = SQLAlchemy()
 
 # Define an application factory function
 
-def create_app():
+def create_app(config_name = "default"):
 
     # static_folder='C:\Bach\ComputerScience\Fullstack_nanodegree\selflearningcs\app\static'
     # template_folder='C:\Bach\ComputerScience\Fullstack_nanodegree\selflearningcs\app\templates'
@@ -44,8 +44,8 @@ def create_app():
     # app.config.from_object(config.get(config_name))
     # config.get(config_name).init_app(app)
 
-    app.config.from_object(config["heroku"])
-    config["heroku"].init_app(app)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
 
 
 
