@@ -1,11 +1,12 @@
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask_login import UserMixin, AnonymousUserMixin
 from sqlalchemy import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from datetime import datetime
-from . import db
+from . import db, login_manager
 
 '''
 setup_db(app)
@@ -57,7 +58,7 @@ users_downvote_answers = db.Table("users_downvote_answers",
 
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(Integer, primary_key=True) 
@@ -69,6 +70,19 @@ class User(db.Model):
     def __init__(self, user_name, password):
         self.user_name = user_name
         self.password = password
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    # generate_password_hash and check_password_hash is method from werkzeug.security
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
     # The many2many relationship can be defined in either one of the two classes
@@ -86,6 +100,14 @@ class User(db.Model):
         "Answer", secondary="users_downvote_answers", backref=db.backref("downvote_users"))
 
     # secondary = specify the name of the association table used in many2many relationship
+
+
+# Flask-login requires the application to designate a function to be invoked when the extension 
+# needs to load a user from the database given its identifiers
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class Question(db.Model):
     __tablename__ = 'questions'

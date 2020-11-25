@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+
+{% block content %}
+
+<h3>Sign Up</h3>
+
+<p class="text-secondary">Already have an account? Then please <a href="{{ login_url }}">sign in</a>.</p>
+
+<form class="signup" id="signup_form" method="post" action="">
+  <div class="form-group">
+    <label for="name">Username: </label>
+    {{ form.username() }}
+  </div>
+
+  <div class="form-group">
+    <label for="name">Email: </label>
+    {{ form.email() }}
+  </div>
+
+  <div class="form-group">
+    <label for="name">Password: </label>
+    {{ form.password() }}
+  </div>
+
+  <div class="form-group">
+    <label for="name">Re-enter password: </label>
+    {{ form.password() }}
+  </div>
+
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  <button type="submit" class="btn btn-primary">Sign Up</button>
+
+</form>
+
+{% endblock %}
