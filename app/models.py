@@ -1,4 +1,6 @@
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from sqlalchemy import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
@@ -60,7 +62,9 @@ class User(db.Model):
 
     id = db.Column(Integer, primary_key=True) 
     user_name = db.Column(String)
-    password = db.Column(String)
+    password_hash = db.Column(db.String(128))
+    confirmed = db.Column(db.Boolean, default=False)
+    email = db.Column(db.String(64), unique=True, index=True)
 
     def __init__(self, user_name, password):
         self.user_name = user_name
